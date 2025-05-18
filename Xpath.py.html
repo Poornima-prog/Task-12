@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Python Selenium Test Code</title>
+  <style>
+    body {
+      font-family: Consolas, monospace;
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+    }
+    pre {
+      white-space: pre-wrap;
+      background: #2d2d2d;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    h2 {
+      color: #61dafb;
+    }
+  </style>
+</head>
+<body>
+  <h2>Python Selenium Test Code</h2>
+  <pre><code>
+import pytest
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+@pytest.fixture
+def driver():
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service)
+    yield driver
+    driver.quit()
+
+def test_find_parent_and_first_child(driver):
+    driver.get("https://www.guvi.in/")
+    assert driver.title == 'GUVI | Learn to code in your native language'
+
+def test_find_second_sibling(driver):
+    driver.get("https://www.guvi.in/")
+    assert driver.current_url == 'https://www.guvi.in/'
+
+def test_find_parent_of_href(driver):
+    driver.get("https://www.guvi.in/")
+    assert "GUVI" in driver.title
+  </code></pre>
+</body>
+</html>
